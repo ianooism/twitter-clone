@@ -1,0 +1,15 @@
+<h1><%= singular_table_name.titleize %></h1>
+
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+<div>
+  <%= attribute.human_name %>:
+  <%%= <%= singular_table_name %>.<%= attribute.name %> %>
+</div>
+
+<% end -%>
+<div>
+  <%%= link_to 'Back', <%= index_helper %>_path %>
+  | <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %>
+  | <%%= link_to 'Destroy', <%= singular_table_name %>, method: :delete,
+         data: { confirm: "Are you sure?" } %>
+</div>
