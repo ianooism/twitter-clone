@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
+  def index
+    render :index, locals: { users: User.all }
+  end
+  
   def show
-    render :show, local: { user: requested_user }
+    render :show, locals: { user: requested_user }
   end
   
   private
