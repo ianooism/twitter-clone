@@ -1,0 +1,17 @@
+<h1>Posts</h1>
+
+<div class="section">
+  <%= link_to 'Create Post', new_post_path %>
+</div>
+
+<% posts.each do |post| %>
+  <div class="section">
+    <%= render post %>
+    <div>
+      <%= link_to 'Show', post %>
+      | <%= link_to 'Edit', edit_post_path(post) %>
+      | <%= link_to 'Destroy', post, method: :delete,
+                     data: { confirm: "Are you sure?" } %>
+    </div>
+  </div>
+<% end %>
