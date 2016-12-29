@@ -1,9 +1,8 @@
 <div>
-  Body:
-  <%= post.body %>
+  <%= link_to post.body, post_path(post) %>
 </div>
 
 <div>
-  Owner:
-  <%= link_to post.owner.email, user_path(post.owner) %>
+  <%= link_to post.owner.email, user_path(post.owner) %> |
+  posted <%= time_ago_in_words(post.created_at) %> ago
 </div>
