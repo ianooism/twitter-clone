@@ -5,5 +5,5 @@
 
 <div>
   Owner:
-  <%= post.owner.email %>
+  <%= link_to post.owner.email, user_path(post.owner) %>
 </div>
