@@ -5,3 +5,9 @@
   <%= time_ago_in_words(user.created_at) %>
   ago
 </div>
+
+<% posts.each do |post| %>
+  <div class="section">
+    <%= render 'posts/post', post: post %>
+  </div>
+<% end %>

@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   end
   
   def show
-    render :show, locals: { user: requested_user }
+    render :show, locals: { user: requested_user,
+                            posts: requested_user.posts }
   end
   
   private

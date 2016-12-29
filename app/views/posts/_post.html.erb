@@ -1,0 +1,9 @@
+<div>
+  Body:
+  <%= post.body %>
+</div>
+
+<div>
+  Owner:
+  <%= link_to post.owner.email, user_path(post.owner) %>
+</div>
