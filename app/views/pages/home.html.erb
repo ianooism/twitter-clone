@@ -1,0 +1,9 @@
+<h1>Home</h1>
+
+<div class="section">
+  Explore:
+  <%= link_to "Posts", posts_path %> |
+  <%= link_to "Users", users_path %>
+</div>
+
+<%= render 'posts/index', posts: posts %>
