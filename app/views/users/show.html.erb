@@ -1,11 +1,12 @@
 <h1><%= user.email %></h1>
 
 <div class="section">
-  Member since
+  Joined
   <%= time_ago_in_words(user.created_at) %>
   ago
 </div>
 
+<h3><%= posts.count %> Posts</h3>
 <% posts.each do |post| %>
   <div class="section">
     <%= render 'posts/post', post: post %>
