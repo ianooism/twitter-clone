@@ -1,5 +1,17 @@
 <h1><%= user.email %></h1>
 
+<% unless user == current_user %>
+<div class="section">
+  <% if relationship %>
+    Following
+    (<%= link_to "Unfollow", user_relationship_path(user, relationship),
+                method: :delete %>)
+  <% else %>
+    <%= link_to "Follow", user_relationships_path(user), method: :post %>
+  <% end %>
+</div>
+<% end %>
+
 <div class="section">
   Joined
   <%= time_ago_in_words(user.created_at) %>
