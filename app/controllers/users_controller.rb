@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   def show
     render :show, locals: { user: requested_user,
                             posts: requested_user.posts,
+                            followers: requested_user.followers,
+                            following: requested_user.following,
                             relationship: current_relationship }
   end
   
