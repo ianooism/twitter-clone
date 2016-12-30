@@ -1,7 +1,6 @@
 class RelationshipsController < ApplicationController
-  # user can be followed (subscribe) and un-followed (un-subscribe)
   def create
-    if new_relationship.update(relationship_form_params)
+    if new_relationship.save
       redirect_to user_url(requested_user), notice: "Relationship created."
     else
       render :new, locals: { relationship: new_relationship }
@@ -9,7 +8,7 @@ class RelationshipsController < ApplicationController
   end
   
   def destroy
-    requested_user.publisher_relationships.destroy(current_relationship)
+    requested_user.follower_relationships.destroy(current_relationship)
     redirect_to user_url(requested_user), notice: "Relationship destroyed."
   end
   
@@ -19,7 +18,7 @@ class RelationshipsController < ApplicationController
     end
     
     def current_relationship
-      @relationship ||= requested_user.publisher_relationships.find(params[:id])
+      @relationship ||= requested_user.follower_relationships.find(params[:id])
     end
     
     def new_relationship
@@ -29,9 +28,5 @@ class RelationshipsController < ApplicationController
     def new_relationship_params
       { subscriber: current_user,
         publisher: requested_user }
-    end
-    
-    def relationship_form_params
-      {}
     end
 end

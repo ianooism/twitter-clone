@@ -15,6 +15,6 @@ class UsersController < ApplicationController
     end
     
     def current_relationship
-      requested_user.publisher_relationships.find_by(subscriber: current_user)
+      requested_user.follower_relationships.find_by(subscriber: current_user)
     end
 end
