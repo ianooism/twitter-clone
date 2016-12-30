@@ -1,9 +1,13 @@
 <h1>Users</h1>
 
 <% users.each do |user| %>
+  <% unless user == current_user %>
   <div class="section">
     User
-    <%= user.id %>:
     <%= link_to user.email, user_path(user) %>
+    <% if current_user.following.include?(user) %>
+      | Following
+    <% end %>
   </div>
+  <% end %>
 <% end %>
