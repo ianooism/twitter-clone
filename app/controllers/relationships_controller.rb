@@ -8,7 +8,7 @@ class RelationshipsController < ApplicationController
   end
   
   def destroy
-    requested_user.follower_relationships.destroy(current_relationship)
+    requested_user.follower_relationships.destroy(requested_relationship)
     redirect_to user_url(requested_user), notice: "Relationship destroyed."
   end
   
@@ -17,7 +17,7 @@ class RelationshipsController < ApplicationController
       @user ||= User.find(params[:user_id])
     end
     
-    def current_relationship
+    def requested_relationship
       @relationship ||= requested_user.follower_relationships.find(params[:id])
     end
     

@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
   def index
-    render :index, locals: { users: other_users }
+    render :index, locals: { users: current_user.not_following }
   end
   
   def show
     render :show, locals: { user: requested_user,
                             posts: requested_user.posts,
+                            followers: requested_user.followers,
+                            following: requested_user.following,
                             relationship: current_relationship }
   end
   
@@ -15,12 +17,6 @@ class UsersController < ApplicationController
     end
     
     def current_relationship
-      @current_relationship ||= requested_user.
-                                follower_relationships.
-                                find_by(subscriber: current_user)
-    end
-    
-    def other_users
-      @other_users ||= User.all - [current_user]
+      requested_user.follower_relationships.find_by(subscriber: current_user)
     end
 end
