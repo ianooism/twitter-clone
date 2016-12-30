@@ -23,4 +23,8 @@ class User < ApplicationRecord
     self.following.map(&:posts).flatten + self.posts
   end
   
+  def not_following
+    User.all - [self] - self.following
+  end
+  
 end

@@ -1,11 +1,15 @@
 <h1>Users</h1>
 
-<% users.each do |user| %>
-  <div class="section">
-    User
-    <%= link_to user.email, user_path(user) %>
-    <% if current_user.following.include?(user) %>
-      | Following
-    <% end %>
-  </div>
+<% if users.empty? %>
+  All users are being followed.
+<% else %>
+  <% users.each do |user| %>
+    <div class="section">
+      User
+      <%= link_to user.email, user_path(user) %>
+      <% if current_user.following.include?(user) %>
+        | Following
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
