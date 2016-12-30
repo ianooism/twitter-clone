@@ -2,8 +2,9 @@
 
 <% unless user == current_user %>
 <div class="section">
-  <% if following.include?(user) %>
-    <%= link_to "Unfollow" %>
+  <% if current_user.following.include?(user) %>
+    <%= link_to "Unfollow", user_relationship_path(user, relationship),
+                method: :delete %>
   <% else %>
     <%= link_to "Follow", user_relationships_path(user), method: :post %>
   <% end %>
