@@ -19,4 +19,8 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships,
            source: :subscriber
   
+  def following_posts
+    self.following.map(&:posts).flatten
+  end
+  
 end
