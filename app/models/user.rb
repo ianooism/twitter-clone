@@ -19,12 +19,16 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships,
            source: :subscriber
   
-  def home_feed_posts
-    self.following.map(&:posts).flatten + self.posts
-  end
-  
   def not_following
     User.all - [self] - self.following
+  end
+  
+  def explore_posts
+    not_following.map(&:posts).flatten
+  end
+  
+  def home_posts
+    self.posts + self.following.map(&:posts).flatten
   end
   
 end
