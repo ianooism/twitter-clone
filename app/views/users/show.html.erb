@@ -1,18 +1,17 @@
 <h1><%= user.email %></h1>
 
 <div class="section">
-  <%= followers.length %> followers |
-  <%= following.length %> following
+  <%= pluralize(followers.length, "follower") %> |
+  <%= pluralize(following.length, "following") %>
 </div>
 
 <% unless user == current_user %>
 <div class="section">
-  <% if relationship %>
+  <% if current_user.following?(user) %>
     Following
-    (<%= link_to "Unfollow", user_relationship_path(user, relationship),
-                method: :delete %>)
+    (<%= link_to "Unfollow", relationship_path(user), method: :delete %>)
   <% else %>
-    <%= link_to "Follow", user_relationships_path(user), method: :post %>
+    <%= link_to "Follow", relationships_path(user), method: :post %>
   <% end %>
 </div>
 <% end %>

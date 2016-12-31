@@ -9,6 +9,7 @@ class User < ApplicationRecord
   # user.following_relationships returns set of relationships that user follows
   has_many :following_relationships, class_name: :Relationship,
            foreign_key: :subscriber_id, dependent: :destroy
+  
   # user.following returns set of publishers that user follows
   has_many :following, through: :following_relationships,
            source: :publisher
@@ -17,12 +18,25 @@ class User < ApplicationRecord
   # user.follower_relationships returns set of relationships that follows user
   has_many :follower_relationships, class_name: :Relationship,
            foreign_key: :publisher_id, dependent: :destroy
+  
   # user.following returns set of subscribers that follows user
   has_many :followers, through: :follower_relationships,
            source: :subscriber
   
+  def follow(publisher)
+    following_relationships.create(publisher: publisher)
+  end
+  
+  def unfollow(publisher)
+    following_relationships.find_by(publisher: publisher).destroy
+  end
+  
+  def following?(publisher)
+    following_relationships.exists?(publisher: publisher)
+  end
+  
   def not_following
-    User.all - [self] - self.following
+    User.all - [self] - following
   end
   
   def explore_posts
@@ -30,7 +44,6 @@ class User < ApplicationRecord
   end
   
   def home_posts
-    self.posts + self.following.map(&:posts).flatten
+    posts + following.map(&:posts).flatten
   end
-  
 end
