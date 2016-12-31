@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable
   
   # user as owner has many posts
   has_many :posts, foreign_key: :owner_id, dependent: :destroy
@@ -11,8 +11,7 @@ class User < ApplicationRecord
            foreign_key: :subscriber_id, dependent: :destroy
   
   # user.following returns set of publishers that user follows
-  has_many :following, through: :following_relationships,
-           source: :publisher
+  has_many :following, through: :following_relationships, source: :publisher
   
   # user as publisher has many follower relationships
   # user.follower_relationships returns set of relationships that follows user
@@ -20,8 +19,7 @@ class User < ApplicationRecord
            foreign_key: :publisher_id, dependent: :destroy
   
   # user.following returns set of subscribers that follows user
-  has_many :followers, through: :follower_relationships,
-           source: :subscriber
+  has_many :followers, through: :follower_relationships, source: :subscriber
   
   def follow(publisher)
     following_relationships.create(publisher: publisher)
