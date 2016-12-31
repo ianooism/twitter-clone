@@ -1,4 +1,5 @@
 class RelationshipsController < ApplicationController
+  # POST /users/:user_id/relationships
   def create
     if new_relationship.save
       redirect_to user_url(requested_user), notice: "Relationship created."
@@ -7,6 +8,7 @@ class RelationshipsController < ApplicationController
     end
   end
   
+  # DELETE /users/:user_id/relationships/:id
   def destroy
     requested_user.follower_relationships.destroy(requested_relationship)
     redirect_to user_url(requested_user), notice: "Relationship destroyed."
