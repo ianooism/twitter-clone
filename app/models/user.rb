@@ -22,15 +22,15 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships, source: :subscriber
   
   def follow(publisher)
-    following_relationships.create(publisher: publisher)
+    following << publisher
   end
   
   def unfollow(publisher)
-    following_relationships.find_by(publisher: publisher).destroy
+    following.delete(publisher)
   end
   
   def following?(publisher)
-    following_relationships.exists?(publisher: publisher)
+    following.include?(publisher)
   end
   
   def not_following
